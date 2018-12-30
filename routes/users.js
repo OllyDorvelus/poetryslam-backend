@@ -24,7 +24,6 @@ router.get("/", async (req, res) => {
     .skip((pageNumber - 1) * pageSize)
     .limit(parseInt(pageSize))
     .select("-password");
-  console.log("query", req.query);
   res.send({ results: users });
 });
 
