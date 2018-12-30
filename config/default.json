@@ -1,0 +1,4 @@
+{
+  "jwtPrivateKey": "",
+  "mongodbConnectionString": "mongodb://localhost/poetryslam"
+}
