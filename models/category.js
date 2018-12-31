@@ -18,7 +18,6 @@ function validate(category) {
   const schema = {
     name: Joi.string()
       .required()
-      .unique()
       .min(3)
       .max(25)
   };

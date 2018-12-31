@@ -1,6 +1,7 @@
 {
   "jwtPrivateKey": "",
   "mongodbConnectionString": "mongodb://localhost/poetryslam",
-  "standardPageSize": 2,
+  "standardPageSize": 3,
+  "auth": false,
   "maxPageSize": 100
 }
