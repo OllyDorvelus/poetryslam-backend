@@ -15,13 +15,14 @@ router.get("/", async (req, res) => {
     pageSize: req.query.pageSize,
     pageNumber: req.query.page
   });
+  const skipPages = (pageNumber - 1) * pageSize;
   const q = req.query.q || "";
   const order = req.query.order || "-username";
   let users = await User.find({
     $or: searchQuery(q, "username", "first_name", "last_name")
   })
     .sort(order)
-    .skip((pageNumber - 1) * pageSize)
+    .skip(skipPages)
     .limit(parseInt(pageSize))
     .select("-password");
   res.send({ results: users });

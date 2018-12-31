@@ -3,12 +3,22 @@ const router = express.Router();
 const { Category, validate } = require("../models/category");
 const admin = require("../middleware/admin");
 const auth = require("../middleware/auth");
-const { message_404, isValidID } = require("./utils");
+const { message_404, isValidID, pagination, searchQuery } = require("./utils");
 
 const category_404 = message_404("category");
 
 router.get("/", async (req, res) => {
-  let categories = await Category.find();
+  const { pageNumber, pageSize } = pagination({
+    pageSize: req.query.pageSize,
+    pageNumber: req.query.page
+  });
+  const skipPages = (pageNumber - 1) * pageSize;
+  const q = req.query.q || "";
+  const order = req.query.order || "name";
+  let categories = await Category.find({ $or: searchQuery(q, "name") })
+    .sort(order)
+    .skip(skipPages)
+    .limit(parseInt(pageSize));
   res.send({ results: categories });
 });
 
