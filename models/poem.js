@@ -7,7 +7,7 @@ const { categorySchema } = require("./category");
 const poemSchema = new mongoose.Schema({
   title: { type: String, minlength: 1, maxlength: 30, required: true },
   content: { type: String, minlength: 5, maxlength: 5000, required: true },
-  user: { type: mongoose.SchemaTypes.objectId, ref: "User", required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   genre: { type: genreSchema, required: true },
   category: {
     type: [categorySchema],

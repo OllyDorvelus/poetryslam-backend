@@ -3,7 +3,8 @@ const router = express.Router();
 const { Category, validate } = require("../models/category");
 const admin = require("../middleware/admin");
 const auth = require("../middleware/auth");
-const { message_404, isValidID, pagination, searchQuery } = require("./utils");
+const validID = require("../middleware/validID");
+const { message_404, pagination, searchQuery } = require("./utils");
 
 const category_404 = message_404("category");
 
@@ -22,8 +23,7 @@ router.get("/", async (req, res) => {
   res.send({ results: categories });
 });
 
-router.get("/:id", async (req, res) => {
-  if (!isValidID(req.params.id)) return res.status(404).send(category_404);
+router.get("/:id", validID(category_404), async (req, res) => {
   const category = await Category.findOne({ _id: req.params.id });
   if (!category) return res.status(404).send(category_404);
   res.send(category);
@@ -41,8 +41,7 @@ router.post("/", [auth, admin], async (req, res) => {
   res.send(category);
 });
 
-router.put("/:id", [auth, admin], async (req, res) => {
-  if (!isValidID(req.params.id)) return res.status(404).send(category_404);
+router.put("/:id", [auth, admin, validID(category_404)], async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const category = await Category.findOneAndUpdate(
@@ -56,11 +55,14 @@ router.put("/:id", [auth, admin], async (req, res) => {
   res.send(category);
 });
 
-router.delete("/:id", [auth, admin], async (req, res) => {
-  if (!isValidID(req.params.id)) res.status(404).send(category_404);
-  const category = await Category.findOneAndDelete({ _id: req.params.id });
-  if (!category) return res.status(404).send(category_404);
-  res.send(category);
-});
+router.delete(
+  "/:id",
+  [auth, admin, validID(category_404)],
+  async (req, res) => {
+    const category = await Category.findOneAndDelete({ _id: req.params.id });
+    if (!category) return res.status(404).send(category_404);
+    res.send(category);
+  }
+);
 
 module.exports = router;

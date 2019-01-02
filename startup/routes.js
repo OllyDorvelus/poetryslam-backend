@@ -4,6 +4,7 @@ const auth = require("../routes/auth");
 const users = require("../routes/users");
 const categories = require("../routes/categories");
 const genres = require("../routes/genres");
+const poems = require("../routes/poems");
 
 module.exports = function(app) {
   app.use(express.json());
@@ -11,5 +12,6 @@ module.exports = function(app) {
   app.use("/api/users", users);
   app.use("/api/categories", categories);
   app.use("/api/genres", genres);
+  app.use("/api/poems", poems);
   app.use(error);
 };
