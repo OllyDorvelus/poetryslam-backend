@@ -26,6 +26,7 @@ exports.message_404 = function(modelName) {
 exports.isValidID = function(id) {
   return mongoose.Types.ObjectId.isValid(id);
 };
-exports.getObject = async function(Model, propertyValue) {
+exports.getObject = async function(Model, id, propertyValue) {
+  if (!propertyValue) return await Model.findById(id);
   return await Model.findOne(propertyValue);
 };

@@ -6,7 +6,7 @@ module.exports = function() {
   mongoose
     .connect(
       config.get("mongodbConnectionString"),
-      { useNewUrlParser: true, useCreateIndex: true }
+      { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false }
     )
     .then(() => dbDebug("connected to mongoDB"));
 };

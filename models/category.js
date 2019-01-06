@@ -5,7 +5,6 @@ const categorySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
     lowercase: true,
     minlength: 3,
     maxlength: 25
@@ -15,7 +14,7 @@ const categorySchema = new mongoose.Schema({
 
 const Category = mongoose.model("Category", categorySchema);
 
-function validate(category) {
+function validateCategory(category) {
   const schema = {
     name: Joi.string()
       .required()
@@ -27,4 +26,4 @@ function validate(category) {
 
 exports.categorySchema = categorySchema;
 exports.Category = Category;
-exports.validate = validate;
+exports.validate = validateCategory;
