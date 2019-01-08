@@ -20,13 +20,12 @@ const poemSchema = new mongoose.Schema(
       }
     },
     createdAt: { type: Date, default: Date.now }
-  },
-  {
-    toObject: { virtuals: true },
-    toJSON: { virtuals: true }
   }
+  //   {
+  //     toObject: { virtuals: true },
+  //     toJSON: { virtuals: true }
+  //   }
 );
-
 // poemSchema.virtual("example").get(async () => {
 //   const user = await User.findById(this.user);
 //   return user;

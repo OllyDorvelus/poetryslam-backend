@@ -4,7 +4,7 @@ const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const validID = require("../middleware/validID");
 const { Genre, validate } = require("../models/genre");
-const { message_404, searchQuery, pagination } = require("./utils");
+const { message_404, isValidID, searchQuery, pagination } = require("./utils");
 
 const genre_404 = message_404("genre");
 
